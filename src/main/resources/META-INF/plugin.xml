@@ -1,0 +1,31 @@
+<idea-plugin>
+  <id>me.blorente.idea.gazelle</id>
+  <name>Bazel Gazelle</name>
+  <version>1.0</version>
+  <vendor email="blorente.me@gmail.com" url="http://blorente.me">Apple</vendor>
+
+  <description><![CDATA[
+        A plugin to run Gazelle on Sync.
+
+        To use, add a `gazelle_target` entry to your `.bazelproject` (e.g. `gazelle_target //:gazelle`).
+    ]]></description>
+
+  <!-- please see https://plugins.jetbrains.com/docs/intellij/build-number-ranges.html for description -->
+  <idea-version since-build="173.0"/>
+
+  <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+       on how to target different products -->
+  <depends>com.intellij.modules.platform</depends>
+  <depends>com.google.idea.bazel.ijwb</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationService serviceInterface="me.blorente.idea.gazelle.BlazeGazelleRunner"
+                        serviceImplementation="me.blorente.idea.gazelle.BlazeGazelleRunnerImpl"/>
+  </extensions>
+
+  <extensions defaultExtensionNs="com.google.idea.blaze">
+    <SyncListener implementation="me.blorente.idea.gazelle.GazelleSyncListener" />
+    <SyncPlugin implementation="me.blorente.idea.gazelle.GazelleSyncPlugin" />
+  </extensions>
+
+</idea-plugin>

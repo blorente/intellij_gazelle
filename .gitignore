@@ -1,0 +1,9 @@
+out/
+bazel-*
+.ijwb
+build/
+.idea/
+.gradle/
+gradle/
+gradlew.bat
+bin/
