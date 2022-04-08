@@ -2,7 +2,7 @@
   <id>me.blorente.idea.gazelle</id>
   <name>Bazel Gazelle</name>
   <version>1.0</version>
-  <vendor email="blorente.me@gmail.com" url="http://blorente.me">Apple</vendor>
+  <vendor email="blorente.me@gmail.com" url="http://blorente.me">BLorente</vendor>
 
   <description><![CDATA[
         A plugin to run Gazelle on Sync.
@@ -21,11 +21,12 @@
   <extensions defaultExtensionNs="com.intellij">
     <applicationService serviceInterface="me.blorente.idea.gazelle.BlazeGazelleRunner"
                         serviceImplementation="me.blorente.idea.gazelle.BlazeGazelleRunnerImpl"/>
+    <applicationService id="GazelleUserSettings" serviceImplementation="me.blorente.idea.gazelle.GazelleUserSettings"/>
   </extensions>
 
   <extensions defaultExtensionNs="com.google.idea.blaze">
     <SyncListener implementation="me.blorente.idea.gazelle.GazelleSyncListener" />
     <SyncPlugin implementation="me.blorente.idea.gazelle.GazelleSyncPlugin" />
+    <SettingsUiContributor implementation="me.blorente.idea.gazelle.GazelleUserSettingsConfigurable$UiContributor" />
   </extensions>
-
 </idea-plugin>

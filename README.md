@@ -6,7 +6,11 @@ This is a standalone IntelliJ Plugin that hooks onto the [upstream Bazel Intelli
 
 Currently, this plugin is not available in the JetBrains Marketplace. Please follow (Building From Source)[#building-from-source].
 
-Once installed, add the following to your `.bazelproject` file to point the plugin to the right Gazelle target:
+Once installed, there are two main ways to configure the plugin; Per-project, and global configuration.
+
+### Per-project Configuration
+
+The most straightforward way to configure the plugin is to add the following to your `.bazelproject` file to point the plugin to the right Gazelle target:
 
 ```
 # .bazelproject.
@@ -14,7 +18,9 @@ Once installed, add the following to your `.bazelproject` file to point the plug
 gazelle_target //:gazelle
 ```
 
-Note that this change will break folks not using this plugin. If your team checks their `.bazelproject` file into the repository, you'll have to clone it and create your own. Luckily, one can import the original file:
+Note that this change will break folks not using this plugin.
+If your team checks their `.bazelproject` file into the repository, you'll have to clone it and create your own.
+Luckily, one can import the original file:
 
 ```
 # Bazel > Project > Open Project View File...
@@ -22,6 +28,19 @@ import your/teams/.bazelproject
 
 gazelle_target //:gazelle
 ```
+
+If this solution is not satisfactory, or if **you only work in a single project**, you can configure the plugin globally:
+
+### Global Configuration
+
+This plugin adds some fields to the Bazel plugin's settings, found in `Cmd+, > Bazel Settings`.
+Currently, you can configure a gazelle target to act as a global default.
+This target will:
+
+* Enable the plugin globally, and
+* Run that target on sync if no other target is specified in the `.bazelproject` file.
+
+![](img/settings.png)
 
 ## <a name="building-from-source"></a> Building From Source
 

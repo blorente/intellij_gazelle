@@ -23,13 +23,25 @@ import java.util.Optional;
 
 public class GazelleSyncListener implements SyncListener {
 
+    private Optional<Label> getGazelleBinary(ProjectViewSet projectViewSet) {
+        Optional<Label> gazelleBinaryFromProjectSettings = projectViewSet.getScalarValue(GazelleSection.KEY);
+        if (gazelleBinaryFromProjectSettings.isPresent()) {
+            return gazelleBinaryFromProjectSettings;
+        }
+        GazelleUserSettings settings = GazelleUserSettings.getInstance();
+        if (settings.getGazelleTarget().equals("")) {
+            return Optional.empty();
+        }
+        return Optional.of(Label.create(settings.getGazelleTarget()));
+    }
+
     public void onSyncStart(Project project, BlazeContext context, SyncMode syncMode)
             throws SyncScope.SyncFailedException, SyncScope.SyncCanceledException {
         if (syncMode == SyncMode.NO_BUILD) {
             return;
         }
         ProjectViewSet projectViewSet = ProjectViewManager.getInstance(project).getProjectViewSet();
-        Optional<Label> gazelleBinary = projectViewSet.getScalarValue(GazelleSection.KEY);
+        Optional<Label> gazelleBinary = this.getGazelleBinary(projectViewSet);
         List<DirectoryEntry> importantDirectories = projectViewSet.listItems(DirectorySection.KEY);
         if (gazelleBinary.isPresent()) {
             BlazeImportSettings importSettings = BlazeImportSettingsManager.getInstance(project).getImportSettings();
