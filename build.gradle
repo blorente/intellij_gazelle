@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.intellij' version '1.4.0'
 }
 
-group 'com.apple'
+group 'me.blorente'
 version '1.0'
 sourceCompatibility = 1.8
 
@@ -17,6 +17,7 @@ dependencies {
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version = '2021.3.2'
+    updateSinceUntilBuild = true
     plugins = [
         'com.google.idea.bazel.ijwb:2022.01.25.0.0-api-version-213'
     ]
@@ -25,4 +26,9 @@ patchPluginXml {
     changeNotes = """
       Add change notes here.<br/>
       <em>most HTML tags may be used</em>"""
+    sinceBuild = "213.0"
+    untilBuild = "213.*"
+}
+runPluginVerifier {
+    ideVersions = ["2021.3.2"]
 }
